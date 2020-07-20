@@ -3,11 +3,7 @@ server:
 spring:
   application:
     name: webflux
-  datasource:
-    url: jdbc:postgresql://localhost:5432/webflux
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/webflux
     username: webflux
     password: webflux
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update

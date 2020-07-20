@@ -2,8 +2,10 @@ package ru.vladigeras.springwebflux.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -11,24 +13,22 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-@Entity
-@Table(name = "person")
+@Table("person")
 public class PersonEntity implements Serializable {
 	private static final long serialVersionUID = 814303450530866990L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "fist_name")
+	@Column("fist_name")
 	private String firstName;
 
-	@Column(name = "last_name")
+	@Column("last_name")
 	private String lastName;
 
-	@Column(name = "middle_name")
+	@Column("middle_name")
 	private String middleName;
 
-	@Column(name = "age")
+	@Column("age")
 	private Integer age;
 }

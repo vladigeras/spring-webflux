@@ -20,17 +20,19 @@ repositories {
 
 ext {
 	lombokVersion = '1.18.12'
-	postgresqlVersion = '42.2.14'
+	r2dbcPostgresqlVersion = '0.8.4.RELEASE'
 }
 
 dependencies {
-	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 	implementation "org.springframework.boot:spring-boot-starter-webflux"
+	implementation "org.springframework.boot:spring-boot-starter-data-r2dbc"
 
 	compileOnly "org.projectlombok:lombok:$lombokVersion"
-	runtimeOnly "org.postgresql:postgresql:$postgresqlVersion"
+	runtimeOnly "io.r2dbc:r2dbc-postgresql:$r2dbcPostgresqlVersion"
 
 	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

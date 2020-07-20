@@ -4,13 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import ru.vladigeras.springwebflux.core.PersonMapper;
 import ru.vladigeras.springwebflux.model.dto.Person;
 import ru.vladigeras.springwebflux.repository.PersonRepository;
 import ru.vladigeras.springwebflux.service.PersonService;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author vladi_geras on 17.07.2020
@@ -23,12 +21,11 @@ public class PersonServiceImpl implements PersonService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Person> get() {
+	public Flux<Person> get() {
 		PersonMapper mapper = new PersonMapper();
 		return personRepository
 				.findAll()
-				.stream()
-				.map(mapper::map)
-				.collect(Collectors.toList());
+				.log()
+				.map(mapper::map);
 	}
 }
