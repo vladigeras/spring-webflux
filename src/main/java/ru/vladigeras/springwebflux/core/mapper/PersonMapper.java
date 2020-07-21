@@ -1,4 +1,4 @@
-package ru.vladigeras.springwebflux.core;
+package ru.vladigeras.springwebflux.core.mapper;
 
 import ru.vladigeras.springwebflux.model.dto.Person;
 import ru.vladigeras.springwebflux.model.entity.PersonEntity;

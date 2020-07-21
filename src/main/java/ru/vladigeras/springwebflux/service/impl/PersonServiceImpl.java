@@ -5,7 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
-import ru.vladigeras.springwebflux.core.PersonMapper;
+import ru.vladigeras.springwebflux.core.client.ExternalAPIClient;
+import ru.vladigeras.springwebflux.core.mapper.PersonMapper;
 import ru.vladigeras.springwebflux.model.dto.Person;
 import ru.vladigeras.springwebflux.repository.PersonRepository;
 import ru.vladigeras.springwebflux.service.PersonService;
@@ -18,6 +19,7 @@ import ru.vladigeras.springwebflux.service.PersonService;
 @Service
 public class PersonServiceImpl implements PersonService {
 	private final PersonRepository personRepository;
+	private final ExternalAPIClient externalAPIClient;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -26,6 +28,11 @@ public class PersonServiceImpl implements PersonService {
 		return personRepository
 				.findAll()
 				.log()
+				.doOnNext(personEntity -> externalAPIClient
+						.getUnicorns()
+						.log()
+						.subscribe(unicorn -> log.info(unicorn.toString()))
+				)
 				.map(mapper::map);
 	}
 }
